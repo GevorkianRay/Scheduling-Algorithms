@@ -11,6 +11,13 @@ public class HPFP {
 	private static int QUANTA_MAX = 100;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
 
+	private int quanta;
+	private double totalTurnaroundTime;
+	private double totalWaitTime;
+	private double totalResponseTime;
+	private double processesFinished;
+	private String out;
+	
 	public static void main(String[] args) {
 		ArrayList<Process> processes = new ArrayList<Process>();
 		for (int i = 1; i <= NUMBER_OF_PROCESSES_TO_MAKE; i++) {
@@ -47,6 +54,7 @@ public class HPFP {
 		q2 = new LinkedList<Process>();
 		q3 = new LinkedList<Process>();
 		q4 = new LinkedList<Process>();
+		out = "";
 		setup();
 	}
 
@@ -95,7 +103,7 @@ public class HPFP {
 					current.setStartExecutionTime(quanta);
 				}
 				if (current.getStartExecutionTime() > -1) {
-					System.out.print("[" + current.getName() + "]");
+					out = out +("[" + current.getName() + "]");
 					current.decrementExecutionTimeRemaining();
 					quanta++;
 					
@@ -120,17 +128,34 @@ public class HPFP {
 					}
 				}
 			} else {
-				System.out.print("[*]");
+				out = out +("[*]");
 				quanta++;
 			}
 
 		}
 
-		System.out.println("\n");
+	
+	}
+	
+	
+	public String getAverages()
+	{
+		String averages = "\n" +"Averages turnaround time: " + totalTurnaroundTime / processesFinished +"\n"
+						+ "Average wait time: " + totalWaitTime / processesFinished +"\n" +
+						"Average response time: " + totalResponseTime / processesFinished +"\n"
+						+ "Throughput: " + processesFinished / quanta + " processes completed per quanta." +"\n";
+		/*System.out.println("\n");
 		System.out.println("Average turnaround time: " + totalTurnaroundTime / processesFinished);
 		System.out.println("Average wait time: " + totalWaitTime / processesFinished);
 		System.out.println("Average response time: " + totalResponseTime / processesFinished);
 		System.out.println("Throughput: " + processesFinished / quanta + " processes completed per quanta.");
-		System.out.println();
+		System.out.println();*/
+		return  averages;
+	}
+	
+	public String getOut()
+	{
+		out = out +"\n";
+		return out;
 	}
 }

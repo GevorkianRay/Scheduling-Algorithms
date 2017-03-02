@@ -7,6 +7,13 @@ public class SRT {
 	private ArrayList<Process> completed;
 	private static int QUANTA_MAX = 99;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
+	
+	private int quanta;
+	private double totalTurnaroundTime;
+	private double totalWaitTime;
+	private double totalResponseTime;
+	private double processesFinished;
+	private String out;
 
 	public static void main(String[] args) {
 		ArrayList<Process> processes = new ArrayList<Process>();
@@ -28,7 +35,7 @@ public class SRT {
 					+ String.format("%3d", process.calculateWaitTime()) + ", Response time: "
 					+ String.format("%3d", process.calculateResponseTime()) + "]\n";
 		}
-		System.out.println(table);
+		//System.out.println(table);
 	}
 
 	public SRT(ArrayList<Process> processes) {
@@ -36,7 +43,9 @@ public class SRT {
 		this.queue = new ArrayList<Process>();
 		this.shortest = null;
 		this.completed = new ArrayList<Process>();
+		
 		run();
+		
 	}
 
 	public ArrayList<Process> getProcesses() {
@@ -44,12 +53,14 @@ public class SRT {
 	}
 
 	private void run() {
-		int quanta = 0;
-		double totalTurnaroundTime = 0;
-		double totalWaitTime = 0;
-		double totalResponseTime = 0;
-		double processesFinished = 0;
-
+		 quanta = 0;
+		 totalTurnaroundTime = 0;
+		 totalWaitTime = 0;
+		 totalResponseTime = 0;
+		 processesFinished = 0;
+		 out = "";
+		 
+		 
 		while (quanta < QUANTA_MAX || !queue.isEmpty()) {
 			// Check the current time quanta, and add processes that arrive at the current time to the queue.
 			for (Process process : processes) {
@@ -79,7 +90,7 @@ public class SRT {
 				// If the process has started
 				if (shortest.getStartExecutionTime() > -1) {
 					// Represent it in the timeline
-					System.out.print("[" + shortest.getName() + "]");
+					out = out+ "[" + shortest.getName() + "]";
 					// Decrement the execution time remaining
 					shortest.decrementExecutionTimeRemaining();
 					// Move the time splice
@@ -102,16 +113,32 @@ public class SRT {
 					}
 				}
 			} else {
-				System.out.print("[*]");
+				out = out+"[*]";
 				quanta++;
 			}
 		}
+		
 
-		System.out.println("\n");
+	}
+	
+	public String getAverages()
+	{
+		String averages = "\n" +"Averages turnaround time: " + totalTurnaroundTime / processesFinished +"\n"
+						+ "Average wait time: " + totalWaitTime / processesFinished +"\n" +
+						"Average response time: " + totalResponseTime / processesFinished +"\n"
+						+ "Throughput: " + processesFinished / quanta + " processes completed per quanta." +"\n";
+		/*System.out.println("\n");
 		System.out.println("Average turnaround time: " + totalTurnaroundTime / processesFinished);
 		System.out.println("Average wait time: " + totalWaitTime / processesFinished);
 		System.out.println("Average response time: " + totalResponseTime / processesFinished);
 		System.out.println("Throughput: " + processesFinished / quanta + " processes completed per quanta.");
-		System.out.println();
+		System.out.println();*/
+		return  averages;
+	}
+	
+	public String getOut()
+	{
+		out = out +"\n";
+		return out;
 	}
 }

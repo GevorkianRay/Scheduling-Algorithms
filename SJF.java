@@ -7,6 +7,13 @@ public class SJF {
 	private ArrayList<Process> completed;
 	private static int QUANTA_MAX = 100;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
+	
+	private int quanta;
+	private double totalTurnaroundTime;
+	private double totalWaitTime;
+	private double totalResponseTime;
+	private double processesFinished;
+	private String out;
 
 	public static void main(String[] args) {
 		ArrayList<Process> processes = new ArrayList<Process>();
@@ -38,6 +45,7 @@ public class SJF {
 		this.queue = new ArrayList<Process>();
 		this.shortest = null;
 		this.completed = new ArrayList<Process>();
+		out="";
 		run();
 	}
 
@@ -46,11 +54,11 @@ public class SJF {
 	}
 
 	private void run() {
-		int quanta = 0;
-		double totalTurnaroundTime = 0;
-		double totalWaitTime = 0;
-		double totalResponseTime = 0;
-		double processesFinished = 0;
+		quanta = 0;
+		totalTurnaroundTime = 0;
+		totalWaitTime = 0;
+		totalResponseTime = 0;
+		processesFinished = 0;
 		
 		while (quanta < QUANTA_MAX) {
 			for (Process process : processes) {
@@ -76,7 +84,7 @@ public class SJF {
 				while (shortest.getExecutionTimeRemaining() > 0) {
 					shortest.decrementExecutionTimeRemaining();
 					quanta++;
-					System.out.print("[" + shortest.getName() + "]");
+					out = out+ ("[" + shortest.getName() + "]");
 				}
 				shortest.setEndTime(quanta);
 				completed.add(shortest);
@@ -86,17 +94,32 @@ public class SJF {
 				totalWaitTime += shortest.calculateWaitTime();
 				totalResponseTime += shortest.calculateResponseTime();
 			} else {
-				System.out.print("[*]");
+				out = out+ ("[*]");
 				quanta++;
 			}
 		}
 		
-		System.out.println("\n");
+		
+	}
+	
+	public String getAverages()
+	{
+		String averages = "\n" +"Averages turnaround time: " + totalTurnaroundTime / processesFinished +"\n"
+						+ "Average wait time: " + totalWaitTime / processesFinished +"\n" +
+						"Average response time: " + totalResponseTime / processesFinished +"\n"
+						+ "Throughput: " + processesFinished / quanta + " processes completed per quanta." +"\n";
+		/*System.out.println("\n");
 		System.out.println("Average turnaround time: " + totalTurnaroundTime / processesFinished);
 		System.out.println("Average wait time: " + totalWaitTime / processesFinished);
 		System.out.println("Average response time: " + totalResponseTime / processesFinished);
 		System.out.println("Throughput: " + processesFinished / quanta + " processes completed per quanta.");
-		System.out.println();
-		
+		System.out.println();*/
+		return  averages;
+	}
+	
+	public String getOut()
+	{
+		out = out +"\n";
+		return out;
 	}
 }
