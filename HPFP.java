@@ -10,13 +10,16 @@ public class HPFP {
 	private Process current;
 	private static int QUANTA_MAX = 100;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
-
+	
+	
 	private int quanta;
 	private double totalTurnaroundTime;
 	private double totalWaitTime;
 	private double totalResponseTime;
 	private double processesFinished;
 	private String out;
+
+
 	
 	public static void main(String[] args) {
 		ArrayList<Process> processes = new ArrayList<Process>();
@@ -40,7 +43,7 @@ public class HPFP {
 					+ String.format("%3d", process.calculateResponseTime()) + "]\n";
 
 		}
-		System.out.println(table);
+		//System.out.println(table);
 	}
 
 	public ArrayList<Process> getProcesses() {
@@ -54,17 +57,19 @@ public class HPFP {
 		q2 = new LinkedList<Process>();
 		q3 = new LinkedList<Process>();
 		q4 = new LinkedList<Process>();
-		out = "";
+		out="";
+		
 		setup();
 	}
 
 	private void setup() {
-		int quanta = 0;
-		double totalTurnaroundTime = 0;
-		double totalResponseTime = 0;
-		double processesFinished = 0;
-		double totalWaitTime = 0;
+		quanta = 0;
+		totalTurnaroundTime = 0;
+		totalResponseTime = 0;
+		processesFinished = 0;
+		totalWaitTime = 0;
 
+		// Check the current time quanta, and add processes that arrive at the current time to the queue.
 		while (quanta < QUANTA_MAX) {
 			for (Process process : processes) {
 				if (process.getArrivalTime() <= quanta) {
@@ -86,6 +91,8 @@ public class HPFP {
 			processes.removeAll(q3);
 			processes.removeAll(q4);
 
+			//preemptive block of code
+			// Get the process in the queue with the lowest remaining execution time.
 			if (!q1.isEmpty() || !q2.isEmpty() || !q3.isEmpty() || !q4.isEmpty()) {
 				if (!q1.isEmpty()) {
 					current = q1.remove();
@@ -98,7 +105,8 @@ public class HPFP {
 				} else {
 					System.exit(0);
 				}
-
+				
+				// If the current shortest process has not started yet, start it.
 				if (current.getStartExecutionTime() < 0 && quanta < QUANTA_MAX) {
 					current.setStartExecutionTime(quanta);
 				}
@@ -116,6 +124,7 @@ public class HPFP {
 						totalWaitTime += current.calculateWaitTime();
 						totalResponseTime += current.calculateResponseTime();
 					} else {
+						//
 						if (current.getPriority() == 1) {
 							q1.add(current);
 						} else if (current.getPriority() == 2) {
@@ -128,7 +137,7 @@ public class HPFP {
 					}
 				}
 			} else {
-				out = out +("[*]");
+				out =out +("[*]");
 				quanta++;
 			}
 

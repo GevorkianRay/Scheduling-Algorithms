@@ -10,11 +10,11 @@ public class Tester {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 		
 		  writer = new PrintWriter("output.txt", "UTF-8");
-		testFCFS();
-		testSJF();
-		testSRT();
-		testRR();
-		testHPFNP();
+		//testFCFS();
+		//testSJF();
+		//testSRT();
+		//testRR();
+		//testHPFNP();
 		testHPFP();
 		writer.close();
 	}
