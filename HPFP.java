@@ -110,6 +110,7 @@ public class HPFP {
 				if (current.getStartExecutionTime() < 0 && quanta < QUANTA_MAX) {
 					current.setStartExecutionTime(quanta);
 				}
+				//once 1 quanta is passed, decrements the quanta of that process and adds to time line 
 				if (current.getStartExecutionTime() > -1) {
 					out = out +("[" + current.getName() + "]");
 					current.decrementExecutionTimeRemaining();
@@ -124,7 +125,7 @@ public class HPFP {
 						totalWaitTime += current.calculateWaitTime();
 						totalResponseTime += current.calculateResponseTime();
 					} else {
-						//
+						//adds back to q if process isnt done yet
 						if (current.getPriority() == 1) {
 							q1.add(current);
 						} else if (current.getPriority() == 2) {

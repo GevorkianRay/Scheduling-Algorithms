@@ -61,6 +61,7 @@ public class SJF {
 		processesFinished = 0;
 		
 		while (quanta < QUANTA_MAX) {
+			// Check the current time quanta, and add processes that arrive at the current time to the queue.
 			for (Process process : processes) {
 				if (process.getArrivalTime() <= quanta) {
 					queue.add(process);
@@ -69,7 +70,9 @@ public class SJF {
 			}
 			processes.removeAll(queue);
 
+			//preemptive block code
 			if (!queue.isEmpty()) {
+				// Get the process in the queue with the lowest remaining execution time.
 				shortest = queue.get(0);
 				for (Process process : queue) {
 					if (process.getGivenExecutionTime() < shortest.getGivenExecutionTime()) {
@@ -84,6 +87,7 @@ public class SJF {
 				while (shortest.getExecutionTimeRemaining() > 0) {
 					shortest.decrementExecutionTimeRemaining();
 					quanta++;
+					//time line representation
 					out = out+ ("[" + shortest.getName() + "]");
 				}
 				shortest.setEndTime(quanta);
@@ -95,6 +99,7 @@ public class SJF {
 				totalResponseTime += shortest.calculateResponseTime();
 			} else {
 				out = out+ ("[*]");
+				//move time splice
 				quanta++;
 			}
 		}

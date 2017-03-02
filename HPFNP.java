@@ -65,6 +65,7 @@ public class HPFNP {
 		processesFinished = 0;
 		totalWaitTime = 0;
 
+		// Check the current time quanta, and add processes based on priority that arrive at the current time to the q's
 		while (quanta < QUANTA_MAX) {
 			for (Process process : processes) {
 				if (process.getArrivalTime() <= quanta) {
@@ -86,6 +87,8 @@ public class HPFNP {
 			processes.removeAll(q3);
 			processes.removeAll(q4);
 
+			//non preemptive block of code
+			// Get a process from the q's from priority 1 to 4
 			if (!q1.isEmpty() || !q2.isEmpty() || !q3.isEmpty() || !q4.isEmpty()) {
 				if (!q1.isEmpty()) {
 					current = q1.remove();
@@ -98,13 +101,16 @@ public class HPFNP {
 				} else {
 					System.exit(0);
 				}
+				// If the current shortest process has not started yet, start it.
 				current.setStartExecutionTime(quanta);
+				//once 1 quanta is passed, decrements the quanta of that process and adds to time line 
 				while (current.getExecutionTimeRemaining() > 0) {
 					current.decrementExecutionTimeRemaining();
 					quanta++;
 					out = out +("[" + current.getName() + "]");
 				}
 				current.setEndTime(quanta);
+				//adds unfinished but decremented process back to its priority queue
 				completed.add(current);
 
 				processesFinished++;

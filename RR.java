@@ -61,6 +61,7 @@ public class RR {
 
 		while (quanta < QUANTA_MAX || !queue.isEmpty()) {
 			if (quanta < QUANTA_MAX) {
+				// Check the current time quanta, and add processes that arrive at the current time to the queue.
 				for (Process process : processes) {
 					if (process.getArrivalTime() <= quanta) {
 						queue.add(process);
@@ -69,20 +70,30 @@ public class RR {
 				}
 				processes.removeAll(queue);
 			}
-
+			
+			// Preemptive code block.
 			if (!queue.isEmpty()) {
+				// Get the process in the queue with the lowest remaining execution time.
 				current = queue.remove(0);
+				// If the current shortest process has not started yet, start it.
 				if (current.getStartExecutionTime() < 0 && quanta < QUANTA_MAX) {
 					current.setStartExecutionTime(quanta);
 				}
-
+				
+				// If the process has started
 				if (current.getStartExecutionTime() > -1) {
+					// Represent it in the timeline
 					out =out + ("[" + current.getName() + "]");
+					// Decrement the execution time remaining
 					current.decrementExecutionTimeRemaining();
+					// Move the time splice
 					quanta++;
 
+					// If the shortest process is done (execution time remaining == 0)
 					if (current.getExecutionTimeRemaining() <= 0) {
+						// Set its end time at the current quanta
 						current.setEndTime(quanta);
+						// Add the finished process to the completed list.
 						completed.add(current);
 
 						processesFinished++;
@@ -90,6 +101,7 @@ public class RR {
 						totalWaitTime += current.calculateWaitTime();
 						totalResponseTime += current.calculateResponseTime();
 					} else {
+						// The process is not done, add it back into the queue.
 						queue.add(current);
 					}
 				}

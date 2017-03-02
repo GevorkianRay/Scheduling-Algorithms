@@ -25,6 +25,7 @@ public class Process {
 		startExecutionTime = -1;
 	}
 	
+	// generate time range
 	private int generateIntTime(int range) {
 		return random.nextInt(range);
 	}
@@ -45,7 +46,8 @@ public class Process {
 		endTime = -1;
 		startExecutionTime = -1;
 	}
-
+	
+	//sorts the list by arrival time based on individual arrival time
 	public static void sortListByArrivalTime(ArrayList<Process> list) {
 		Comparator<Process> comparator = new Comparator<Process>() {
 			public int compare(Process process1, Process process2) {
@@ -61,6 +63,7 @@ public class Process {
 		Collections.sort(list, comparator);
 	}
 	
+	//sorts the lsit by the process's execution time
 	public static void sortListByExecutionTime(ArrayList<Process> list) {
 		Comparator<Process> comparator = new Comparator<Process>() {
 			public int compare(Process process1, Process process2) {
