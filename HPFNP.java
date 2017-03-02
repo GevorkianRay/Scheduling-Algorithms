@@ -8,7 +8,7 @@ public class HPFNP {
 	private Queue<Process> q3;
 	private Queue<Process> q4;
 	private Process current;
-	private static int QUANTA_MAX = 99;
+	private static int QUANTA_MAX = 100;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
 
 	public static void main(String[] args) {

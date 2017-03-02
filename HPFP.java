@@ -8,14 +8,12 @@ public class HPFP {
 	private Queue<Process> q3;
 	private Queue<Process> q4;
 	private Process current;
-	private static int QUANTA_MAX = 99;
+	private static int QUANTA_MAX = 100;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		ArrayList<Process> processes = new ArrayList<Process>();
-		for (int i = 1; i <= NUMBER_OF_PROCESSES_TO_MAKE; i++) 
-		{
+		for (int i = 1; i <= NUMBER_OF_PROCESSES_TO_MAKE; i++) {
 			Process process = new Process("P" + i, i);
 			processes.add(process);
 		}
@@ -38,13 +36,11 @@ public class HPFP {
 		System.out.println(table);
 	}
 
-	public ArrayList<Process> getProcesses() 
-	{
+	public ArrayList<Process> getProcesses() {
 		return this.completed;
 	}
 
-	public HPFP(ArrayList<Process> processes)
-	{
+	public HPFP(ArrayList<Process> processes) {
 		this.processes = processes;
 		this.completed = new ArrayList<Process>();
 		q1 = new LinkedList<Process>();
@@ -54,8 +50,7 @@ public class HPFP {
 		setup();
 	}
 
-	private void setup() 
-	{
+	private void setup() {
 		int quanta = 0;
 		double totalTurnaroundTime = 0;
 		double totalResponseTime = 0;
@@ -83,9 +78,7 @@ public class HPFP {
 			processes.removeAll(q3);
 			processes.removeAll(q4);
 
-
-			while(!q1.isEmpty()|| !q2.isEmpty()|| !q3.isEmpty()|| !q4.isEmpty())
-			{
+			if (!q1.isEmpty() || !q2.isEmpty() || !q3.isEmpty() || !q4.isEmpty()) {
 				if (!q1.isEmpty()) {
 					current = q1.remove();
 				} else if (!q2.isEmpty()) {
@@ -97,18 +90,16 @@ public class HPFP {
 				} else {
 					System.exit(0);
 				}
-				
-				if (current.getStartExecutionTime() < 0 && quanta < QUANTA_MAX) 
-				{
+
+				if (current.getStartExecutionTime() < 0 && quanta < QUANTA_MAX) {
 					current.setStartExecutionTime(quanta);
 				}
-				if (current.getStartExecutionTime() > -1) 
-				{
+				if (current.getStartExecutionTime() > -1) {
 					System.out.print("[" + current.getName() + "]");
 					current.decrementExecutionTimeRemaining();
-
-					if (current.getExecutionTimeRemaining() <= 0)
-					{
+					quanta++;
+					
+					if (current.getExecutionTimeRemaining() <= 0) {
 						current.setEndTime(quanta);
 						completed.add(current);
 
@@ -116,47 +107,30 @@ public class HPFP {
 						totalTurnaroundTime += current.calculateTurnaroundTime();
 						totalWaitTime += current.calculateWaitTime();
 						totalResponseTime += current.calculateResponseTime();
-					}
-					else
-					{
-						if(current.getPriority()==1)
-						{
+					} else {
+						if (current.getPriority() == 1) {
 							q1.add(current);
-						}
-						else if(current.getPriority()==2)
-						{
+						} else if (current.getPriority() == 2) {
 							q2.add(current);
-						}
-						else if(current.getPriority()==3)
-						{
+						} else if (current.getPriority() == 3) {
 							q3.add(current);
-						}
-						else
-						{
+						} else {
 							q4.add(current);
 						}
-							
 					}
-					quanta++;
 				}
-			}
-			
-			if(q1.isEmpty()|| q2.isEmpty()|| q3.isEmpty()|| q4.isEmpty())
-			{
+			} else {
 				System.out.print("[*]");
 				quanta++;
 			}
-		
-			}
-			
-		
 
-			System.out.println("\n");
-			System.out.println("Average turnaround time: " + totalTurnaroundTime / processesFinished);
-			System.out.println("Average wait time: " + totalWaitTime / processesFinished);
-			System.out.println("Average response time: " + totalResponseTime / processesFinished);
-			System.out.println("Throughput: " + processesFinished / quanta + " processes completed per quanta.");
-			System.out.println();
 		}
-	}
 
+		System.out.println("\n");
+		System.out.println("Average turnaround time: " + totalTurnaroundTime / processesFinished);
+		System.out.println("Average wait time: " + totalWaitTime / processesFinished);
+		System.out.println("Average response time: " + totalResponseTime / processesFinished);
+		System.out.println("Throughput: " + processesFinished / quanta + " processes completed per quanta.");
+		System.out.println();
+	}
+}

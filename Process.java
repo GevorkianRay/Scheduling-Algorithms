@@ -24,10 +24,6 @@ public class Process {
 		endTime = -1;
 		startExecutionTime = -1;
 	}
-
-	private int generateIntTime1(int min, int max) {
-		return random.nextInt() * (max - min) + min;
-	}
 	
 	private int generateIntTime(int range) {
 		return random.nextInt(range);

@@ -2,16 +2,18 @@ import java.util.ArrayList;
 
 public class FCFS {
 	private ArrayList<Process> processes;
-	private static int QUANTA_MAX = 99;
+	private ArrayList<Process> completed;
+	private static int QUANTA_MAX = 100;
 	private static int NUMBER_OF_PROCESSES_TO_MAKE = 30;
 
 	public FCFS(ArrayList<Process> processes) {
 		this.processes = processes;
+		this.completed = new ArrayList<Process>();
 		execute();
 	}
 
 	public ArrayList<Process> getProcesses() {
-		return this.processes;
+		return this.completed;
 	}
 
 	public static void main(String[] args) {
@@ -64,6 +66,7 @@ public class FCFS {
 					}
 				}
 				
+				completed.add(process);
 				processesFinished++;
 				process.setEndTime(quanta);
 				totalTurnaroundTime += process.calculateTurnaroundTime();

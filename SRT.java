@@ -11,7 +11,7 @@ public class SRT {
 	public static void main(String[] args) {
 		ArrayList<Process> processes = new ArrayList<Process>();
 		for (int i = 1; i <= NUMBER_OF_PROCESSES_TO_MAKE; i++) {
-			Process process = new Process("P" + i, i + 30);
+			Process process = new Process("P" + i, i);
 			processes.add(process);
 		}
 		Process.sortListByArrivalTime(processes);
@@ -51,20 +51,55 @@ public class SRT {
 		double processesFinished = 0;
 
 		while (quanta < QUANTA_MAX || !queue.isEmpty()) {
-			if (quanta < QUANTA_MAX) {
-				for (Process process : processes) {
-					if (process.getArrivalTime() <= quanta) {
-						queue.add(process);
-						// processes.remove(process);
+			// Check the current time quanta, and add processes that arrive at the current time to the queue.
+			for (Process process : processes) {
+				if (process.getArrivalTime() <= quanta) {
+					queue.add(process);
+					// processes.remove(process);
+				}
+			}
+			processes.removeAll(queue);
+
+			// Preemptive code block.
+			if (!queue.isEmpty()) {
+				// Get the process in the queue with the lowest remaining execution time.
+				shortest = queue.get(0);
+				for (Process process : queue) {
+					if (process.getExecutionTimeRemaining() < shortest.getExecutionTimeRemaining()) {
+						shortest = process;
 					}
 				}
-				processes.removeAll(queue);
-			}
+				queue.remove(shortest);
+				
+				// If the current shortest process has not started yet, start it.
+				if (shortest.getStartExecutionTime() < 0 && quanta < QUANTA_MAX) {
+					shortest.setStartExecutionTime(quanta);
+				}
+				
+				// If the process has started
+				if (shortest.getStartExecutionTime() > -1) {
+					// Represent it in the timeline
+					System.out.print("[" + shortest.getName() + "]");
+					// Decrement the execution time remaining
+					shortest.decrementExecutionTimeRemaining();
+					// Move the time splice
+					quanta++;
 
-			if (!queue.isEmpty()) {
-				shortest = queue.get(0);
-				for(Process process : queue) {
-					if (queue.size)
+					// If the shortest process is done (execution time remaining == 0)
+					if (shortest.getExecutionTimeRemaining() <= 0) {
+						// Set its end time at the current quanta
+						shortest.setEndTime(quanta);
+						// Add the finished process to the completed list.
+						completed.add(shortest);
+
+						processesFinished++;
+						totalTurnaroundTime += shortest.calculateTurnaroundTime();
+						totalWaitTime += shortest.calculateWaitTime();
+						totalResponseTime += shortest.calculateResponseTime();
+					} else {
+						// The process is not done, add it back into the queue.
+						queue.add(shortest);
+					}
 				}
 			} else {
 				System.out.print("[*]");

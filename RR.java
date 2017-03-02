@@ -70,6 +70,7 @@ public class RR {
 				if (current.getStartExecutionTime() > -1) {
 					System.out.print("[" + current.getName() + "]");
 					current.decrementExecutionTimeRemaining();
+					quanta++;
 
 					if (current.getExecutionTimeRemaining() <= 0) {
 						current.setEndTime(quanta);
@@ -82,7 +83,6 @@ public class RR {
 					} else {
 						queue.add(current);
 					}
-					quanta++;
 				}
 			} else {
 				System.out.print("[*]");
