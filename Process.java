@@ -7,6 +7,7 @@ public class Process {
 	private int startExecutionTime;
 	private int endTime;
 	private int priority;
+	private int waitTime;
 	private Random random;
 	private String name;
 
@@ -20,19 +21,19 @@ public class Process {
 		givenExecutionTime = generateIntTime(10) + 1;
 		executionTimeRemaining = givenExecutionTime;
 		priority = random.nextInt(4) + 1;
+		waitTime = 0;
 
 		endTime = -1;
 		startExecutionTime = -1;
 	}
-	
-	// generate time range
+
 	private int generateIntTime(int range) {
 		return random.nextInt(range);
 	}
 
-	// Turnaround time – time from arrival to completion.
-	// Response time – time from arrival to the first instance of output.
-	// Execution time – time from start of execution
+	// Turnaround time â€“ time from arrival to completion.
+	// Response time â€“ time from arrival to the first instance of output.
+	// Execution time â€“ time from start of execution
 	// Throughput is the number of jobs per hour that the system completes
 
 	public Process(String name, int seed) {
@@ -46,8 +47,7 @@ public class Process {
 		endTime = -1;
 		startExecutionTime = -1;
 	}
-	
-	//sorts the list by arrival time based on individual arrival time
+
 	public static void sortListByArrivalTime(ArrayList<Process> list) {
 		Comparator<Process> comparator = new Comparator<Process>() {
 			public int compare(Process process1, Process process2) {
@@ -62,8 +62,7 @@ public class Process {
 		};
 		Collections.sort(list, comparator);
 	}
-	
-	//sorts the lsit by the process's execution time
+
 	public static void sortListByExecutionTime(ArrayList<Process> list) {
 		Comparator<Process> comparator = new Comparator<Process>() {
 			public int compare(Process process1, Process process2) {
@@ -139,32 +138,39 @@ public class Process {
 		executionTimeRemaining--;
 	}
 
+	public void incrementWaitTime() {
+		waitTime++;
+		if (waitTime >= MAX_WAIT_TIME) {
+			increasePriority();
+		}
+	}
+
+	public int waitTime() {
+		return waitTime;
+	}
+
 	public void increasePriority() {
 		if (priority > HIGHEST_PRIORITY) {
 			priority--;
 		}
 	}
-	
+
 	public int calculateTurnaroundTime() {
 		return Math.max(endTime - arrivalTime, 0);
 	}
-	
+
 	public int calculateWaitTime() {
 		return Math.max(calculateTurnaroundTime() - givenExecutionTime, 0);
 	}
-	
+
 	public int calculateResponseTime() {
 		return Math.max(startExecutionTime - arrivalTime, 0);
 	}
 
 	/*
-	public Process clone() {
-		Process process = new Process();
-		process.setArrivalTime(arrivalTime);
-		process.setGivenExecutionTime(givenExecutionTime);
-		process.setName(name);
-		process.setPriority(priority);
-		return process;
-	}
-	*/
+	 * public Process clone() { Process process = new Process();
+	 * process.setArrivalTime(arrivalTime);
+	 * process.setGivenExecutionTime(givenExecutionTime); process.setName(name);
+	 * process.setPriority(priority); return process; }
+	 */
 }
