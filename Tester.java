@@ -16,56 +16,59 @@ public class Tester {
 		testRR();
 		testHPFNP();
 		testHPFP();
+		testHPFNP_Aging();
+		testHPFP_Aging();
 		writer.close();
 	}
 
 	public static void testFCFS() throws FileNotFoundException, UnsupportedEncodingException {
 		writer.write("//- Testing FCFS.");
-		FCFS fcfs = new FCFS(generateList(0));
-		writer.write(fcfs.getAverages() + "\n" + fcfs.getOut());
+		FCFS fcfs1 = new FCFS(generateList(0));
+		writer.write(fcfs1.getAverages() + "\n" + fcfs1.getOut());
 
-		printTable(fcfs.getProcesses());
-		fcfs = new FCFS(generateList(30));
-		writer.write(fcfs.getAverages() + "\n" + fcfs.getOut());
+		printTable(fcfs1.getProcesses());
+		FCFS fcfs2 = new FCFS(generateList(30));
+		writer.write(fcfs2.getAverages() + "\n" + fcfs2.getOut());
 
-		printTable(fcfs.getProcesses());
-		fcfs = new FCFS(generateList(60));
-		writer.write(fcfs.getAverages() + "\n" + fcfs.getOut());
+		printTable(fcfs2.getProcesses());
+		FCFS fcfs3 = new FCFS(generateList(60));
+		writer.write(fcfs3.getAverages() + "\n" + fcfs3.getOut());
 
-		printTable(fcfs.getProcesses());
-		fcfs = new FCFS(generateList(90));
-		writer.write(fcfs.getAverages() + "\n" + fcfs.getOut());
+		printTable(fcfs3.getProcesses());
+		FCFS fcfs4 = new FCFS(generateList(90));
+		writer.write(fcfs4.getAverages() + "\n" + fcfs4.getOut());
 
-		printTable(fcfs.getProcesses());
-		fcfs = new FCFS(generateList(120));
-		writer.write(fcfs.getAverages() + "\n" + fcfs.getOut());
+		printTable(fcfs4.getProcesses());
+		FCFS fcfs5 = new FCFS(generateList(120));
+		writer.write(fcfs5.getAverages() + "\n" + fcfs5.getOut());
 
-		printTable(fcfs.getProcesses());
+		printTable(fcfs5.getProcesses());
 	}
 
 	public static void testSJF() throws FileNotFoundException, UnsupportedEncodingException {
 		writer.write("//- Testing SJF.");
-		SJF sjf = new SJF(generateList(0));
-		writer.write(sjf.getAverages() + "\n" + sjf.getOut());
+		SJF sjf1 = new SJF(generateList(0));
+		writer.write(sjf1.getAverages() + "\n" + sjf1.getOut());
 
-		printTable(sjf.getProcesses());
-		sjf = new SJF(generateList(30));
-		writer.write(sjf.getAverages() + "\n" + sjf.getOut());
+		printTable(sjf1.getProcesses());
+		SJF sjf2 = new SJF(generateList(30));
+		writer.write(sjf2.getAverages() + "\n" + sjf2.getOut());
 
-		printTable(sjf.getProcesses());
-		sjf = new SJF(generateList(60));
-		writer.write(sjf.getAverages() + "\n" + sjf.getOut());
+		printTable(sjf2.getProcesses());
+		SJF sjf3 = new SJF(generateList(60));
+		writer.write(sjf3.getAverages() + "\n" + sjf3.getOut());
 
-		printTable(sjf.getProcesses());
-		sjf = new SJF(generateList(90));
-		writer.write(sjf.getAverages() + "\n" + sjf.getOut());
+		printTable(sjf3.getProcesses());
+		SJF sjf4 = new SJF(generateList(90));
+		writer.write(sjf4.getAverages() + "\n" + sjf4.getOut());
 
-		printTable(sjf.getProcesses());
-		sjf = new SJF(generateList(120));
-		writer.write(sjf.getAverages() + "\n" + sjf.getOut());
+		printTable(sjf4.getProcesses());
+		SJF sjf5 = new SJF(generateList(120));
+		writer.write(sjf5.getAverages() + "\n" + sjf5.getOut());
 
-		printTable(sjf.getProcesses());
+		printTable(sjf5.getProcesses());
 	}
+	
 
 	public static void testSRT() throws FileNotFoundException, UnsupportedEncodingException {
 		writer.write("//- Testing SRT.");
@@ -162,6 +165,54 @@ public class Tester {
 
 		printTable(hpfp.getProcesses());
 	}
+	
+	public static void testHPFP_Aging() throws FileNotFoundException, UnsupportedEncodingException {
+		writer.write("//- Testing HPFP_Aging.");
+		HPFP_Aging hpfnp = new HPFP_Aging(generateList(0));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFP_Aging(generateList(30));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFP_Aging(generateList(60));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFP_Aging(generateList(90));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFP_Aging(generateList(120));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+	}
+	
+	public static void testHPFNP_Aging() throws FileNotFoundException, UnsupportedEncodingException {
+		writer.write("//- Testing HPFNP_Aging.");
+		HPFNP_Aging hpfnp = new HPFNP_Aging(generateList(0));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFNP_Aging(generateList(30));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFNP_Aging(generateList(60));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFNP_Aging(generateList(90));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+		hpfnp = new HPFNP_Aging(generateList(120));
+		writer.write(hpfnp.getAverages() + "\n" + hpfnp.getOut());
+
+		printTable(hpfnp.getProcesses());
+	}
 
 	public static void printTable(List<Process> processes) throws FileNotFoundException, UnsupportedEncodingException {
 		String table = "";
@@ -179,86 +230,90 @@ public class Tester {
 		writer.write("\n");
 		// System.out.println(table);
 	}
-	
-	public static double getAverageTurnaroundTime(List<Process> processes1, List<Process> processes2, List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+
+	public static double getAverageTurnaroundTime(List<Process> processes1, List<Process> processes2,
+			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double average = 0;
 		double averageP = 0;
-		for(Process p: processes1) {
+		for (Process p : processes1) {
 			averageP += p.calculateTurnaroundTime();
 		}
 		average += averageP / processes1.size();
-		for(Process p: processes2) {
+		for (Process p : processes2) {
 			averageP += p.calculateTurnaroundTime();
 		}
 		average += averageP / processes2.size();
-		for(Process p: processes3) {
+		for (Process p : processes3) {
 			averageP += p.calculateTurnaroundTime();
 		}
 		average += averageP / processes3.size();
-		for(Process p: processes4) {
+		for (Process p : processes4) {
 			averageP += p.calculateTurnaroundTime();
 		}
 		average += averageP / processes4.size();
-		for(Process p: processes5) {
+		for (Process p : processes5) {
 			averageP += p.calculateTurnaroundTime();
+		}
+		average += averageP / processes5.size();
+		return average / 5;
+	}
+
+	public static double getAverageWaitTime(List<Process> processes1, List<Process> processes2,
+			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+		double average = 0;
+		double averageP = 0;
+		for (Process p : processes1) {
+			averageP += p.calculateWaitTime();
+		}
+		average += averageP / processes1.size();
+		for (Process p : processes2) {
+			averageP += p.calculateWaitTime();
+		}
+		average += averageP / processes2.size();
+		for (Process p : processes3) {
+			averageP += p.calculateWaitTime();
+		}
+		average += averageP / processes3.size();
+		for (Process p : processes4) {
+			averageP += p.calculateWaitTime();
+		}
+		average += averageP / processes4.size();
+		for (Process p : processes5) {
+			averageP += p.calculateWaitTime();
 		}
 		average += averageP / processes5.size();
 		return average;
 	}
-	
-	public static double getAverageWaitTime(List<Process> processes1, List<Process> processes2, List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+
+	public static double getAverageResponseTime(List<Process> processes1, List<Process> processes2,
+			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double average = 0;
 		double averageP = 0;
-		for(Process p: processes1) {
-			averageP += p.calculateWaitTime();
-		}
-		average += averageP / processes1.size();
-		for(Process p: processes2) {
-			averageP += p.calculateWaitTime();
-		}
-		average += averageP / processes2.size();
-		for(Process p: processes3) {
-			averageP += p.calculateWaitTime();
-		}
-		average += averageP / processes3.size();
-		for(Process p: processes4) {
-			averageP += p.calculateWaitTime();
-		}
-		average += averageP / processes4.size();
-		for(Process p: processes5) {
-			averageP += p.calculateWaitTime();
-		}
-		average += averageP / processes5.size();
-		return average;
-	}
-	
-	public static double getAverageResponseTime(List<Process> processes1, List<Process> processes2, List<Process> processes3, List<Process> processes4, List<Process> processes5) {
-		double average = 0;
-		double averageP = 0;
-		for(Process p: processes1) {
+		for (Process p : processes1) {
 			averageP += p.calculateResponseTime();
 		}
 		average += averageP / processes1.size();
-		for(Process p: processes2) {
+		for (Process p : processes2) {
 			averageP += p.calculateResponseTime();
 		}
 		average += averageP / processes2.size();
-		for(Process p: processes3) {
+		for (Process p : processes3) {
 			averageP += p.calculateResponseTime();
 		}
 		average += averageP / processes3.size();
-		for(Process p: processes4) {
+		for (Process p : processes4) {
 			averageP += p.calculateResponseTime();
 		}
 		average += averageP / processes4.size();
-		for(Process p: processes5) {
+		for (Process p : processes5) {
 			averageP += p.calculateResponseTime();
 		}
 		average += averageP / processes5.size();
 		return average;
 	}
-	
-	public static double getAverageThroughput(List<Process> processes1, List<Process> processes2, List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+
+	public static double getAverageThroughput(List<Process> processes1, List<Process> processes2,
+			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double p1 = processes1.get(processes1.size() - 1).getEndTime() / processes1.size();
 		double p2 = processes2.get(processes2.size() - 1).getEndTime() / processes2.size();
 		double p3 = processes3.get(processes3.size() - 1).getEndTime() / processes3.size();
