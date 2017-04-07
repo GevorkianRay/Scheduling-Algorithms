@@ -68,7 +68,7 @@ public class Tester {
 
 		printTable(sjf5.getProcesses());
 	}
-	
+
 
 	public static void testSRT() throws FileNotFoundException, UnsupportedEncodingException {
 		writer.write("//- Testing SRT.");
@@ -165,7 +165,7 @@ public class Tester {
 
 		printTable(hpfp.getProcesses());
 	}
-	
+
 	public static void testHPFP_Aging() throws FileNotFoundException, UnsupportedEncodingException {
 		writer.write("//- Testing HPFP_Aging.");
 		HPFP_Aging hpfnp = new HPFP_Aging(generateList(0));
@@ -189,7 +189,7 @@ public class Tester {
 
 		printTable(hpfnp.getProcesses());
 	}
-	
+
 	public static void testHPFNP_Aging() throws FileNotFoundException, UnsupportedEncodingException {
 		writer.write("//- Testing HPFNP_Aging.");
 		HPFNP_Aging hpfnp = new HPFNP_Aging(generateList(0));
@@ -232,7 +232,7 @@ public class Tester {
 	}
 
 	public static double getAverageTurnaroundTime(List<Process> processes1, List<Process> processes2,
-			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+												  List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double average = 0;
 		double averageP = 0;
 		for (Process p : processes1) {
@@ -259,7 +259,7 @@ public class Tester {
 	}
 
 	public static double getAverageWaitTime(List<Process> processes1, List<Process> processes2,
-			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+											List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double average = 0;
 		double averageP = 0;
 		for (Process p : processes1) {
@@ -286,7 +286,7 @@ public class Tester {
 	}
 
 	public static double getAverageResponseTime(List<Process> processes1, List<Process> processes2,
-			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+												List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double average = 0;
 		double averageP = 0;
 		for (Process p : processes1) {
@@ -313,7 +313,7 @@ public class Tester {
 	}
 
 	public static double getAverageThroughput(List<Process> processes1, List<Process> processes2,
-			List<Process> processes3, List<Process> processes4, List<Process> processes5) {
+											  List<Process> processes3, List<Process> processes4, List<Process> processes5) {
 		double p1 = processes1.get(processes1.size() - 1).getEndTime() / processes1.size();
 		double p2 = processes2.get(processes2.size() - 1).getEndTime() / processes2.size();
 		double p3 = processes3.get(processes3.size() - 1).getEndTime() / processes3.size();
