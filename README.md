@@ -8,6 +8,6 @@ Includes:
 5. Shortest Job First
 6. Shortest Remaining Time
 
-Simulations aid in learning where certain scheduling algorithms are best used and the scenarios in which they should be considered.
+Used for CS 149 (Operating Systems) at SJSU.
 
 
